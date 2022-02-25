@@ -18,22 +18,17 @@ public class warningMessageDef {
     @Then("the warning message should pop up as {string} for the empty field")
     public void the_warning_message_should_pop_up_as_for_the_empty_field(String expectedWarningMessage) {
         BrowserUtils.waitFor(3);
-        System.out.println(new LoginPage().userName.getText());
-        System.out.println(new LoginPage().password.getText());
-        if (new LoginPage().userName.getText().isEmpty()) {
-            BrowserUtils.waitFor(3);
-            String warningMessage = new LoginPage().userName.getAttribute("validationMessage");
-            System.out.println(warningMessage);
-            Assert.assertEquals(expectedWarningMessage, warningMessage);
-        }
-        else if (new LoginPage().password.getText().isEmpty()){
-            BrowserUtils.waitFor(3);
-            String warningMessage = new LoginPage().password.getAttribute("validationMessage");
-            System.out.println(warningMessage);
-            Assert.assertEquals(expectedWarningMessage, warningMessage);
+        String warningMessage="";
+        if (new LoginPage().userName.getAttribute("value").equals("")) {
+            warningMessage = new LoginPage().userName.getAttribute("validationMessage");
+
+        } else if (new LoginPage().password.getAttribute("value").equals("")){
+            warningMessage = new LoginPage().password.getAttribute("validationMessage");
+
         }else {
             System.out.println("error");
         }
 
+        Assert.assertEquals(expectedWarningMessage, warningMessage);
     }
 }
